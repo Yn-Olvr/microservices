@@ -24,27 +24,6 @@ pipeline {
             steps {
                 script {
                     sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 510314780674.dkr.ecr.us-east-1.amazonaws.com'
-<<<<<<< HEAD
-<<<<<<< HEAD
-                    sh docker.tag('auth', '510314780674.dkr.ecr.us-east-1.amazonaws.com/microservices:auth' + env.BUILD_NUMBER)
-                    sh docker.tag('converter-service', '510314780674.dkr.ecr.us-east-1.amazonaws.com/microservices:converter' + env.BUILD_NUMBER)
-                    sh docker.tag('notification-service', '510314780674.dkr.ecr.us-east-1.amazonaws.com/microservices:notification' + env.BUILD_NUMBER)
-                    sh docker.tag('gateway-service', '510314780674.dkr.ecr.us-east-1.amazonaws.com/microservices:gateway' + env.BUILD_NUMBER)
-                    sh docker.push('510314780674.dkr.ecr.us-east-1.amazonaws.com/microservices:auth' + env.BUILD_NUMBER)
-                    sh docker.push('510314780674.dkr.ecr.us-east-1.amazonaws.com/microservices:converter' + env.BUILD_NUMBER)
-                    sh docker.push('510314780674.dkr.ecr.us-east-1.amazonaws.com/microservices:gateway' + env.BUILD_NUMBER)
-                    sh docker.push('510314780674.dkr.ecr.us-east-1.amazonaws.com/microservices:notification' + env.BUILD_NUMBER)
-=======
-                    sh 'docker tag auth 510314780674.dkr.ecr.us-east-1.amazonaws.com/microservices:auth + $BUILD_NUMBER'
-                    sh 'docker tag converter-service 510314780674.dkr.ecr.us-east-1.amazonaws.com/microservices:converter + $BUILD_NUMBER'
-                    sh 'docker tag notification-service 510314780674.dkr.ecr.us-east-1.amazonaws.com/microservices:notification + $BUILD_NUMBER'
-                    sh 'docker tag gateway-service 510314780674.dkr.ecr.us-east-1.amazonaws.com/microservices:gateway + $BUILD_NUMBER'
-                    sh 'docker push 510314780674.dkr.ecr.us-east-1.amazonaws.com/microservices:auth + $BUILD_NUMBER'
-                    sh 'docker push 510314780674.dkr.ecr.us-east-1.amazonaws.com/microservices:converter + $BUILD_NUMBER'
-                    sh 'docker push 510314780674.dkr.ecr.us-east-1.amazonaws.com/microservices:gateway + $BUILD_NUMBER'
-                    sh 'docker push 510314780674.dkr.ecr.us-east-1.amazonaws.com/microservices:notification + $BUILD_NUMBER'
->>>>>>> parent of 7b0a98a (Coding jenkinsfile)
-=======
                     sh 'docker tag auth 510314780674.dkr.ecr.us-east-1.amazonaws.com/microservices:auth'
                     sh 'docker tag converter-service 510314780674.dkr.ecr.us-east-1.amazonaws.com/microservices:converter'
                     sh 'docker tag notification-service 510314780674.dkr.ecr.us-east-1.amazonaws.com/microservices:notification'
@@ -53,7 +32,7 @@ pipeline {
                     sh 'docker push 510314780674.dkr.ecr.us-east-1.amazonaws.com/microservices:converter'
                     sh 'docker push 510314780674.dkr.ecr.us-east-1.amazonaws.com/microservices:gateway'
                     sh 'docker push 510314780674.dkr.ecr.us-east-1.amazonaws.com/microservices:notification'
->>>>>>> parent of 177bd33 (Coding jenkinsfile)
+
                 }
             }
         }
