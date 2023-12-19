@@ -6,12 +6,12 @@ pipeline {
         dockerimage = '' 
     }
 
-    stages{
+    stages {
         stage('Checkout'){
             steps {
                 git branch: 'main', url: 'https://github.com/Yn-Olvr/microservices.git'
             }
-        
+        }
         stage('Build all services') {
             steps {
                 sh 'docker build -t auth /src/auth-service/'
@@ -52,5 +52,4 @@ pipeline {
             }      
         } */
     }
-}
 }
