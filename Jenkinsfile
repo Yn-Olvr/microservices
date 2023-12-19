@@ -14,10 +14,10 @@ pipeline {
         }
         stage('Build all services') {
             steps {
-                sh 'docker build -t auth /src/auth-service/'
-                sh 'docker build -t converter-service /src/converter-service/'
-                sh 'docker build -t gateway-service /src/gateway-service/'
-                sh 'docker build -t notification-service /src/notification-service/'
+                sh 'docker build -t auth ./src/auth-service/'
+                sh 'docker build -t converter-service ./src/converter-service/'
+                sh 'docker build -t gateway-service ./src/gateway-service/'
+                sh 'docker build -t notification-service ./src/notification-service/'
             }      
         }
         stage('Push Docker Images to ECR') {
