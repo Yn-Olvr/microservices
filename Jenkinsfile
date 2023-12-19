@@ -28,10 +28,10 @@ pipeline {
                     sh 'docker tag converter-service 510314780674.dkr.ecr.us-east-1.amazonaws.com/microservices:converter'
                     sh 'docker tag notification-service 510314780674.dkr.ecr.us-east-1.amazonaws.com/microservices:notification'
                     sh 'docker tag gateway-service 510314780674.dkr.ecr.us-east-1.amazonaws.com/microservices:gateway'
-                    sh 'docker push 510314780674.dkr.ecr.us-east-1.amazonaws.com/microservices:auth'
-                    sh 'docker push 510314780674.dkr.ecr.us-east-1.amazonaws.com/microservices:converter'
-                    sh 'docker push 510314780674.dkr.ecr.us-east-1.amazonaws.com/microservices:gateway'
-                    sh 'docker push 510314780674.dkr.ecr.us-east-1.amazonaws.com/microservices:notification'
+                    sh 'docker push 510314780674.dkr.ecr.us-east-1.amazonaws.com/microservices:auth + $BUILD_NUMBER'
+                    sh 'docker push 510314780674.dkr.ecr.us-east-1.amazonaws.com/microservices:converter + $BUILD_NUMBER'
+                    sh 'docker push 510314780674.dkr.ecr.us-east-1.amazonaws.com/microservices:gateway + $BUILD_NUMBER'
+                    sh 'docker push 510314780674.dkr.ecr.us-east-1.amazonaws.com/microservices:notification + $BUILD_NUMBER'
                 }
             }
         }
