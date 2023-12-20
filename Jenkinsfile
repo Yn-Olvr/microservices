@@ -43,6 +43,6 @@ pipeline {
                 sh 'helm install postgres ./Helm_charts/Postgres/'
                 sh 'helm install rabbitmq ./Helm_charts/RabbitMQ/'
             }      
-        
+        }
     }
 }
