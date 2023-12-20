@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: converter
-          image: nasi101/converter
+          image: 510314780674.dkr.ecr.us-east-1.amazonaws.com/microservices:converter
           envFrom:
             - configMapRef:
                 name: converter-configmap

@@ -36,7 +36,6 @@ pipeline {
                 }
             }
         }
-        /* }
         stage('Install helm chart for mongo') {
             steps {
                 sh 'helm install mongo ./helm_charts/MongoDB/'
@@ -51,6 +50,6 @@ pipeline {
             steps {
                 sh 'helm install rabbitmq ./helm_charts/RabbitMQ/'
             }      
-        } */
+        }
     }
 }

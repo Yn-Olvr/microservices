@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: notification
-          image: nasi101/notification
+          image: 510314780674.dkr.ecr.us-east-1.amazonaws.com/microservices:notification
           envFrom:
             - configMapRef:
                 name: notification-configmap
