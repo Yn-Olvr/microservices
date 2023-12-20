@@ -38,17 +38,17 @@ pipeline {
         }
         stage('Install helm chart for mongo') {
             steps {
-                sh 'helm install mongo ./helm_charts/MongoDB/'
+                sh 'helm install mongo ./Helm_charts/MongoDB/'
             }      
         }
         stage('Install helm chart for postgres') {
             steps {
-                sh 'helm install postgres ./helm_charts/Postgres/'
+                sh 'helm install postgres ./Helm_charts/Postgres/'
             }      
         }
         stage('Install helm chart for rabbitmq') {
             steps {
-                sh 'helm install rabbitmq ./helm_charts/RabbitMQ/'
+                sh 'helm install rabbitmq ./Helm_charts/RabbitMQ/'
             }      
         }
     }
