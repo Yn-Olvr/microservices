@@ -38,10 +38,11 @@ pipeline {
         }
         stage('Install helm chart for MongoDB, Postgres & RabbitMQ') {
             steps {
-                sh ('aws eks update-kubeconfig --name eks-cluster --region us-east-1')
-                sh 'helm install mongo ./Helm_charts/MongoDB/'
-                sh 'helm install postgres ./Helm_charts/Postgres/'
-                sh 'helm install rabbitmq ./Helm_charts/RabbitMQ/'
+                withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'eks_credentials', namespace: '', serverUrl: '') {
+                 sh 'helm install mongo ./Helm_charts/MongoDB/'
+                 sh 'helm install postgres ./Helm_charts/Postgres/'
+                 sh 'helm install rabbitmq ./Helm_charts/RabbitMQ/'
+                }
             }      
         }
     }
