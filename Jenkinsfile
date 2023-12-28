@@ -15,7 +15,7 @@ pipeline {
         }
         stage('Run jenkins as root'){
             steps{
-                sh 'sudo su'
+                sh 'sudo su root'
             }
         }
         stage('Build all services') {
