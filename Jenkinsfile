@@ -46,7 +46,7 @@ pipeline {
                     // loop through each release name and check if it exists
                     RELEASE_NAMES.each { releaseName ->
                         echo "Checking if release '${releaseName}' exists..."
-                        def helmListCommand = "helm list --filter \"^${releaseName}$\" --short"
+                        def helmListCommand = "helm list --filter '\\^${releaseName}$' --short"
                         def helmListOutput = sh(script: helmListCommand, returnStdout: true).trim()
                         if (helmListOutput == releaseName) {
                             echo "Release '${releaseName}' already exists. Marking to skip deployment."
