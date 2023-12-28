@@ -13,11 +13,7 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/Yn-Olvr/microservices.git'
             }
         }
-        stage('Run jenkins as root'){
-            steps{
-                sh 'sudo su root'
-            }
-        }
+        
         stage('Build all services') {
             steps {
                 sh 'docker build -t auth ./src/auth-service/'
