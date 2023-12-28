@@ -4,7 +4,7 @@ pipeline {
     environment {
         registry = '510314780674.dkr.ecr.us-east-1.amazonaws.com/microservices'
         dockerimage = ''
-        RELEASE_NAMES = ["mongo", "postgres", "rabbitmq"] 
+        /* RELEASE_NAMES = ["mongo", "postgres", "rabbitmq"]  */
     }
 
     stages {
