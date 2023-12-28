@@ -3,7 +3,8 @@ pipeline {
 
     environment {
         registry = '510314780674.dkr.ecr.us-east-1.amazonaws.com/microservices'
-        dockerimage = '' 
+        dockerimage = ''
+        RELEASE_NAMES = ['mongo', 'postgres', 'rabbitmq'] 
     }
 
     stages {
@@ -36,22 +37,51 @@ pipeline {
                 }
             }
         }
-        stage('Install helm chart for MongoDB, Postgres & RabbitMQ') {
+
+        stage('Check existing helm releases'){
             steps {
-                withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'eks_credentials', namespace: '', serverUrl: '') {
-                 sh 'helm install mongo ./Helm_charts/MongoDB/'
-                 sh 'helm install postgres ./Helm_charts/Postgres/'
-                 sh 'helm install rabbitmq ./Helm_charts/RabbitMQ/'
+                script{
+                    def skipDeployment = false
+
+                    // loop through each release name and check if it exists
+                    RELEASE_NAMES.each { releaseName ->
+                        echo "Checking if release '${releaseName}' exists..."
+                        def helmListOutput = sh(script: "helm init --filter '^${releaseName}$' --short", returnStdout: true).trim()
+                        if (helmListOutput == releaseName) {
+                            echo "Release '${releaseName}' already exists. Marking to skip deployment."
+                            skipDeployment = true
+                        }
+                    }
+
+                    // If any release exists, skip further deployment
+                    if (skipDeployment) {
+                        currentBuild.result = 'SUCCESS'
+                        error("One or more releases already exist. Skipping deployment.")
+                    }
+                }
+            }
+        }
+        stage('Install helm chart for MongoDB, Postgres & RabbitMQ') {
+            when {
+                // Only proceed if skipDeployment is false
+                expression { currentBuild.result = 'SUCCESS'}
+            }
+            steps {
+                script {
+                    withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'eks_credentials', namespace: '', serverUrl: '') {
+                        sh 'helm install mongo ./Helm_charts/MongoDB/'
+                        sh 'helm install postgres ./Helm_charts/Postgres/'
+                        sh 'helm install rabbitmq ./Helm_charts/RabbitMQ/'
                 }
             }      
         }
         stage('Apply kubernetes manifest files for the services'){
             steps {
                 withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'eks_credentials', namespace: '', serverUrl: '') {
-                 sh 'kubectl apply -f ./src/auth-service/manifest/.'
-                 sh 'kubectl apply -f ./src/gateway-service/manifest/.'
-                 sh 'kubectl apply -f ./src/converter-service/manifest/.'
-                 sh 'kubectl apply -f ./src/notification-service/manifest/.'
+                 sh 'kubectl apply -f ./src/auth-service/manifest/'
+                 sh 'kubectl apply -f ./src/gateway-service/manifest/'
+                 sh 'kubectl apply -f ./src/converter-service/manifest/'
+                 sh 'kubectl apply -f ./src/notification-service/manifest/'
                 }
             }
         }
