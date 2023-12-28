@@ -67,7 +67,6 @@ pipeline {
                 expression { currentBuild.result = 'SUCCESS'}
             }
             steps {
-                script {
                     withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'eks_credentials', namespace: '', serverUrl: '') {
                         sh 'helm install mongo ./Helm_charts/MongoDB/'
                         sh 'helm install postgres ./Helm_charts/Postgres/'
