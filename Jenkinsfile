@@ -45,5 +45,15 @@ pipeline {
                 }
             }      
         }
+        stage('Apply kubernetes manifest files for the services'){
+            steps {
+                withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'eks_credentials', namespace: '', serverUrl: '') {
+                 sh 'kubectl apply -f ./src/auth-service/manifest/.'
+                 sh 'kubectl apply -f ./src/gateway-service/manifest/.'
+                 sh 'kubectl apply -f ./src/converter-service/manifest/.'
+                 sh 'kubectl apply -f ./src/notification-service/manifest/.'
+                }
+            }
+        }
     }
 }
