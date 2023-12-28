@@ -38,7 +38,7 @@ pipeline {
             }
         }
 
-        stage('Check existing helm releases'){
+        /* stage('Check existing helm releases'){
             steps {
                 script{
                     def skipDeployment = false
@@ -61,12 +61,12 @@ pipeline {
                     }
                 }
             }
-        }
+        } */
         stage('Install helm chart for MongoDB, Postgres & RabbitMQ') {
-            when {
+            /* when {
                 // Only proceed if skipDeployment is false
                 expression { currentBuild.result = 'SUCCESS'}
-            }
+            } */
             steps {
                     withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'eks_credentials', namespace: '', serverUrl: '') {
                         sh 'helm install mongo ./Helm_charts/MongoDB/'
